@@ -1,4 +1,5 @@
 import pygame
+from maze_generator import Maze, MazeController
 
 WIDTH = 400
 HEIGHT = 200
@@ -41,8 +42,8 @@ while True:
             else:
                 active = False
             if 140 <= mouse[0] <= 140 + 108 and 150 <= mouse[1] <= 150 + 32:
-                from maze_generator import Maze
-                maze = Maze(int(user_text))
+                maze_controller = MazeController(int(user_text))
+                maze_controller.run()
 
         if event.type == pygame.KEYDOWN:
             if active:
