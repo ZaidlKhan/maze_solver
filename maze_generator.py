@@ -1,5 +1,6 @@
 import pygame
 from random import choice
+import maze_solver
 
 pygame.init()
 
@@ -42,8 +43,21 @@ class MazeController:
                         self.select_cell(col, row)
                         self.start_point = (col, row)
                         self.maze.start_point = self.start_point
+                    if self.start_point and self.end_point:
+                        solver = maze_solver.MazeSolver(self.maze, self)
+                        path = solver.solve()
+                        print(path)
+                        self.draw_solution(path)
             pygame.display.flip()
             self.clock.tick(250)
+
+    def draw_solution(self, path):
+        tile = self.tile
+        for cell in path:
+            x, y = cell
+            pygame.draw.rect(self.screen, pygame.Color('yellow'), (tile*x + 5, tile*y + 5, tile - 10, tile - 10))
+            pygame.display.flip()
+            self.clock.tick(60)
 
     def select_cell(self, col, row):
         cell = self.maze.grid_cells[self.find_index(col, row)]
@@ -117,6 +131,7 @@ class Maze:
             self.controller = controller
             self.walls = {"top": True, "right": True, "bottom": True, "left": True}
             self.visited = False
+            self.graph_visited = False
             self.color = None
             self.selected = False
             self.sc = sc
@@ -146,10 +161,9 @@ class Maze:
             if self.walls["left"]:
                 pygame.draw.line(self.controller.screen, pygame.Color("white"), (x, y + self.controller.tile), (x, y),
                                  2)
-
             if self.selected:
                 color = pygame.Color("darkgreen") if not self.selected else pygame.Color("red")
-                pygame.draw.rect(self.sc, color, (x, y, self.tile, self.tile))
+                pygame.draw.rect(self.sc, color, (x + 2, y + 2, self.tile - 2, self.tile - 2))
 
         def check_neighbors(self):
             neighbors = []
