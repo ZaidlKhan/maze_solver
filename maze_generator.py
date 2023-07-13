@@ -46,7 +46,6 @@ class MazeController:
                     if self.start_point and self.end_point:
                         solver = maze_solver.MazeSolver(self.maze, self)
                         path = solver.solve()
-                        print(path)
                         self.draw_solution(path)
             pygame.display.flip()
             self.clock.tick(250)
