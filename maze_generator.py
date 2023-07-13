@@ -54,7 +54,7 @@ class MazeController:
         tile = self.tile
         for cell in path:
             x, y = cell
-            pygame.draw.rect(self.screen, pygame.Color('yellow'), (tile*x + 5, tile*y + 5, tile - 10, tile - 10))
+            pygame.draw.rect(self.screen, pygame.Color('yellow'), (tile*x + 7, tile*y + 7, tile - 14, tile - 14))
             pygame.display.flip()
             self.clock.tick(60)
 
