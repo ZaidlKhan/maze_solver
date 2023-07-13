@@ -25,7 +25,7 @@ class MazeController:
                     exit()
             self.maze.draw()
             pygame.display.flip()
-            self.clock.tick(250)
+            self.clock.tick(350)
 
         while True:
             for event in pygame.event.get():
@@ -48,15 +48,15 @@ class MazeController:
                         path = solver.solve()
                         self.draw_solution(path)
             pygame.display.flip()
-            self.clock.tick(250)
+            self.clock.tick(350)
 
     def draw_solution(self, path):
         tile = self.tile
         for cell in path:
             x, y = cell
-            pygame.draw.rect(self.screen, pygame.Color('yellow'), (tile*x + 7, tile*y + 7, tile - 14, tile - 14))
+            pygame.draw.rect(self.screen, pygame.Color('lightblue'), (tile*x + 7, tile*y + 7, tile - 14, tile - 14))
             pygame.display.flip()
-            self.clock.tick(60)
+            self.clock.tick(30)
 
     def select_cell(self, col, row):
         cell = self.maze.grid_cells[self.find_index(col, row)]
