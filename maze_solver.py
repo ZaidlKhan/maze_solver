@@ -33,12 +33,10 @@ class MazeSolver:
         x = current_cell.x
         y = current_cell.y
         neighbors = []
-
         top = self.controller.check_cell(x, y - 1)
         right = self.controller.check_cell(x + 1, y)
         bottom = self.controller.check_cell(x, y + 1)
         left = self.controller.check_cell(x - 1, y)
-
         if top and not top.graph_visited and not current_cell.walls['top']:
             neighbors.append(top)
         if right and not right.graph_visited and not current_cell.walls['right']:
